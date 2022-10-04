@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "commonjs",
     "skipLibCheck": true,
     "esModuleInterop": true,
