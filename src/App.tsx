@@ -5,6 +5,8 @@ import { navigation } from './constants/navigation';
 import HomePage from './pages/HomePage';
 import ExplorePage from './pages/ExplorePage';
 
+import './App.css';
+
 const App = () => {
     return (
         <AppShell
