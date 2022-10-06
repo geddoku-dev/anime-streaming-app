@@ -30,7 +30,7 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-    height: 385,
+    minHeight: 370,
   },
 
   info: {
@@ -58,7 +58,13 @@ const useStyles = createStyles((theme) => ({
 
   subInfo: {
     fontSize: 14,
-    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.md,
+    position: "absolute",
+    bottom: 0,
+  },
+
+  title: {
+    maxHeight: 70,
   },
 }));
 
@@ -86,26 +92,26 @@ function ItemCard({
   const { classes } = useStyles();
 
   return (
-    <Card className={classes.card} withBorder radius="md" p="md">
+    <Card className={classes.card} radius="sm" p="xs">
       <Card.Section className="itemCardImageWrapper">
         <img className="itemCardImage" src={image} alt={title} />
       </Card.Section>
       <Group className={classes.info}>
         <Group spacing="xs">
-          <Badge className={classes.infoBadge} variant="filled" radius="sm">
-            <Text className={classes.infoBadgeText}>{sub && "SUB"}</Text>
+          <Badge className={classes.infoBadge} radius="sm" size="sm">
+            <Text className={classes.infoBadgeText}>{sub && "sub"}</Text>
           </Badge>
-          <Badge className={classes.infoBadge} variant="filled" radius="sm">
-            <Text className={classes.infoBadgeText}>{dub && "DUB"}</Text>
+          <Badge className={classes.infoBadge} radius="sm" size="sm">
+            <Text className={classes.infoBadgeText}>{dub && "dub"}</Text>
           </Badge>
         </Group>
-        <Badge className={classes.episodesBadge} variant="filled" radius="sm">
+        <Badge className={classes.episodesBadge} radius="sm" size="sm">
           <Text className={classes.episodesBadgeText}>
             Ep {currentEpisodes}
           </Text>
         </Badge>
       </Group>
-      <Text mt={15} size={18} weight={500}>
+      <Text className={classes.title} mt={15} size={16} weight={500}>
         {title}
       </Text>
       <Group spacing="xs" className={classes.subInfo}>
