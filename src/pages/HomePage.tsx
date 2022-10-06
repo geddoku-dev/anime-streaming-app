@@ -9,12 +9,28 @@ import {
   Group,
 } from "@mantine/core";
 
+const useCarouselStyles = createStyles((_theme, _params, getRef) => ({
+  controls: {
+    ref: getRef("controls"),
+    transition: "opacity 150ms ease",
+    opacity: 0,
+  },
+
+  root: {
+    "&:hover": {
+      [`& .${getRef("controls")}`]: {
+        opacity: 1,
+      },
+    },
+  },
+}));
+
 const useStyles = createStyles((theme) => ({
   card: {
     position: "relative",
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
-    height: 600,
+    height: 385,
   },
 
   info: {
@@ -39,6 +55,11 @@ const useStyles = createStyles((theme) => ({
   episodesBadgeText: {
     color: "white",
   },
+
+  subInfo: {
+    fontSize: 14,
+    marginTop: theme.spacing.md,
+  },
 }));
 
 interface CardProps {
@@ -52,7 +73,16 @@ interface CardProps {
   episodeMin: string;
 }
 
-function ItemCard({ image, title, sub, dub, currentEpisodes }: CardProps) {
+function ItemCard({
+  image,
+  title,
+  sub,
+  dub,
+  currentEpisodes,
+  category,
+  format,
+  episodeMin,
+}: CardProps) {
   const { classes } = useStyles();
 
   return (
@@ -74,6 +104,16 @@ function ItemCard({ image, title, sub, dub, currentEpisodes }: CardProps) {
             Ep {currentEpisodes}
           </Text>
         </Badge>
+      </Group>
+      <Text mt={15} size={18} weight={500}>
+        {title}
+      </Text>
+      <Group spacing="xs" className={classes.subInfo}>
+        <Text>{format}</Text>
+        <Text>&#9679;</Text>
+        <Text>{category}</Text>
+        <Text>&#9679;</Text>
+        <Text>{episodeMin}</Text>
       </Group>
     </Card>
   );
@@ -105,6 +145,7 @@ const data: CardProps[] = [
 ];
 
 function CardsCarousel() {
+  const { classes } = useCarouselStyles();
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
   const slides = data.map((item) => (
@@ -117,11 +158,12 @@ function CardsCarousel() {
     <Carousel
       withIndicators={false}
       draggable={false}
-      slideSize="20%"
+      slideSize="16.666666%"
       breakpoints={[{ maxWidth: "sm", slideSize: "100%", slideGap: 2 }]}
       slideGap="xl"
       align="start"
       slidesToScroll={mobile ? 1 : 3}
+      classNames={classes}
     >
       {slides}
     </Carousel>
